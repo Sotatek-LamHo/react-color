@@ -49,13 +49,15 @@ export class EditableInput extends (PureComponent || Component) {
     }
   }
 
-  handleBlur = () => {
+  handleBlur = (e) => {
+    e.preventDefault()
     if (this.state.blurValue) {
       this.setState({ value: this.state.blurValue, blurValue: null })
     }
   }
 
   handleChange = (e) => {
+    e.preventDefault()
     this.setUpdatedValue(e.target.value, e)
   }
 
@@ -64,6 +66,7 @@ export class EditableInput extends (PureComponent || Component) {
   }
 
   handleKeyDown = (e) => {
+    e.preventDefault()
     // In case `e.target.value` is a percentage remove the `%` character
     // and update accordingly with a percentage
     // https://github.com/casesandberg/react-color/issues/383
@@ -77,6 +80,7 @@ export class EditableInput extends (PureComponent || Component) {
   }
 
   setUpdatedValue(value, e) {
+    e.preventDefault()
     const onChangeValue = this.props.label ? this.getValueObjectWithLabel(value) : value
     this.props.onChange && this.props.onChange(onChangeValue, e)
 
@@ -84,6 +88,7 @@ export class EditableInput extends (PureComponent || Component) {
   }
 
   handleDrag = (e) => {
+    e.preventDefault()
     if (this.props.dragLabel) {
       const newValue = Math.round(this.props.value + e.movementX)
       if (newValue >= 0 && newValue <= this.props.dragMax) {
@@ -93,6 +98,7 @@ export class EditableInput extends (PureComponent || Component) {
   }
 
   handleMouseDown = (e) => {
+    e.preventDefault()
     if (this.props.dragLabel) {
       e.preventDefault()
       this.handleDrag(e)
@@ -101,7 +107,8 @@ export class EditableInput extends (PureComponent || Component) {
     }
   }
 
-  handleMouseUp = () => {
+  handleMouseUp = (e) => {
+    e.preventDefault()
     this.unbindEventListeners()
   }
 
